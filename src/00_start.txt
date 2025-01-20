@@ -1,0 +1,70 @@
+#commands are perfoming in the terminal of the work computer (screen), except if mentioned #*
+#*ssh (*command in the laptop terminal)
+ssh ksenia@172.27.47.71
+# folders were created on the work computer
+mkdir -p projects/brainNGS/ref/h38_e110
+#* modified virus references and the human reference were downloaded to this folder from the laptop (*command in the laptop terminal)
+rsync -auR --progress projects/brainNGS/ref/h38_e110/gen* ksenia@172.27.47.71:
+#Terminal looks like this and it's transferring quite long:
+#sending incremental file list
+#projects/
+#projects/brainNGS/
+#projects/brainNGS/ref/
+#projects/brainNGS/ref/h38_e110/
+#projects/brainNGS/ref/h38_e110/genes.gtf
+
+# download anaconda on the work computer
+curl -O https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh
+# install anaconda
+bash ~/Anaconda3-2024.10-1-Linux-x86_64.sh
+
+#create a new environment ("NGS" - an environment name)
+conda create --name NGS
+conda activate NGS
+
+#add bioconda
+conda config --add channels bioconda
+conda config --add channels conda-forge
+
+#install star
+conda install star
+
+# screen:
+screen # start new screen
+screen -S name # start screen with this name
+screen -ls # show all screens
+screen -r name # attach screen
+# ctrl-A-D - dettach screen
+
+# connect to remote
+# sudo ipsec restart # after changing config
+sudo ipsec up CAM # start VPN
+# sudo ipsec down CAM # close VPN
+ssh ksenia@172.27.47.71
+
+# remote jupyter lab
+# on remote server
+conda activate NGS
+jupyter lab --no-browser --port=8888 --ip='0.0.0.0' --NotebookApp.token=fox
+# paste this url into local browser
+172.27.47.71:8888/lab?token=fox
+
+#*copy Lera's modified gtf and virus genomes to the lab server
+(NGS) foxenia@home-asus:~/projects/brainNGS/ref/h38_e110_new$ rsync -auR all* ksenia@172.27.47.71:/mnt/data4A/ksenia/projects/brainNGS/ref/h38_e110_new
+
+#combine fa and gtf on the lab server
+gunzip *all
+(base) [ksenia@localhost h38_e110_new]$ cat *.gtf > genes.gtf
+(base) [ksenia@localhost h38_e110_new]$ cat Homo_sapiens.GRCh38.dna.primary_assembly.fa all_virus.fasta > genomes.fa
+
+#turn on STAR on the lab server
+(base) [ksenia@localhost h38_e110_new]$ conda activate NGS
+(NGS) [ksenia@localhost h38_e110_new]$ STAR \
+>  --runThreadN 4 \
+>  --runMode genomeGenerate \
+>  --genomeDir genome \
+>  --genomeFastaFiles genomes.fa \
+>  --sjdbGTFfile genes.gtf \
+>  --sjdbOverhang 100
+
+
