@@ -67,4 +67,30 @@ gunzip *all
 >  --sjdbGTFfile genes.gtf \
 >  --sjdbOverhang 100
 
+#20 january 2025, for the github and for the notebook 04_read count
+*#from the home laptop, cd /projects/brainNGS
+git add src
+git commit -m 'all folder'
+git push
 
+#from the server
+#remember github credentials
+git config --global credential.helper store
+git remote add origin https://github.com/foxenia/brainNGS.
+
+# install multiqc
+conda install bioconda::multiqc
+
+# install htseq 
+conda deactivate //#NGS env
+conda create --name htseq
+conda install bioconda::htseq
+
+#ctrl+shift+C - kill the processes
+
+# before count analysis, install R
+conda inactivate //htseq
+conda create --name r_env r-essentials r-base
+conda activate r_env
+# Install the R Kernal
+conda install -c r r-irkernel
