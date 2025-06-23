@@ -1,0 +1,17 @@
+condition	replicate	tissue	organoid.stage	organoid.line	timepoint	name	id
+MLB2	s1	brain	NA	NA	10d	MLB2_brain_s1_10d_VL11	VL11
+MLB2	s2	brain	NA	NA	10d	MLB2_brain_s2_10d_VL12	VL12
+VA1	s1	brain	NA	NA	10d	VA1_brain_s1_10d_VL13	VL13
+VA1	s2	brain	NA	NA	10d	VA1_brain_s2_10d_VL14	VL14
+HAstV4	s1	brain	NA	NA	10d	HAstV4_brain_s1_10d_VL15	VL15
+HAstV4	s2	brain	NA	NA	10d	HAstV4_brain_s2_10d_VL16	VL16
+mock	s1	brain	NA	NA	10d	mock_brain_s1_10d_VL17	VL17
+mock	s2	brain	NA	NA	10d	mock_brain_s2_10d_VL18	VL18
+mock_trypsin	s1	brain	NA	NA	10d	mock_trypsin_brain_s1_10d_VL19	VL19
+mock_trypsin	s2	brain	NA	NA	10d	mock_trypsin_brain_s2_10d_VL20	VL20
+mock	s1	gut	undiff	duo354	24h	mock_gut_undiff_duo354_s1_VL21	VL21
+mock	s2	gut	undiff	duo354	24h	mock_gut_undiff_duo354_s2_VL22	VL22
+mock	s3	gut	undiff	duo354	24h	mock_gut_undiff_duo354_s3_VL23	VL23
+MLB2	s1	gut	undiff	duo354	24h	MLB2_gut_undiff_duo354_s1_VL24	VL24
+MLB2	s2	gut	undiff	duo354	24h	MLB2_gut_undiff_duo354_s2_VL25	VL25
+MLB2	s3	gut	undiff	duo354	24h	MLB2_gut_undiff_duo354_s3_VL26	VL26

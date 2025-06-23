@@ -1,0 +1,93 @@
+1) 
+v = 'VA1'
+xcnd = deseq_gdiff
+ycnd = deseq_brain 
+
+cmn = intersect(rownames(xcnd[[v]]),rownames(ycnd[[v]]))
+sgn = xcnd[[v]][cmn,'padj'] < 0.05
+x = xcnd[[v]][cmn,'log2FoldChange']
+y = ycnd[[v]][cmn,'log2FoldChange']
+
+plot(x,y,pch=ifelse(sgn,19,1),xlab='gundiff',ylab='brain',main=v)
+abline(h=0,col='red',lty=2)
+abline(v=0,col='red',lty=2)
+abline(a=0,b=1,col='red',lty=2)
+
+selgenes = sgn & abs(xcnd[[v]][cmn,'log2FoldChange']) > 2 &  abs(ycnd[[v]][cmn,'log2FoldChange']) > 2 
+text(x[selgenes],y[selgenes],genes[cmn[selgenes],'gene_name'],col='blue',font=2)
+cor.test(x,y,m='p')
+
+	Pearson's product-moment correlation
+
+data:  x and y
+t = 4.4077, df = 11003, p-value = 1.054e-05
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.02331794 0.06061940
+sample estimates:
+      cor 
+0.0419833 
+
+
+
+2) 
+v = 'VA1'
+xcnd = deseq_gundiff
+ycnd = deseq_brain 
+
+cmn = intersect(rownames(xcnd[[v]]),rownames(ycnd[[v]]))
+sgn = xcnd[[v]][cmn,'padj'] < 0.05
+x = xcnd[[v]][cmn,'log2FoldChange']
+y = ycnd[[v]][cmn,'log2FoldChange']
+
+plot(x,y,pch=ifelse(sgn,19,1),xlab='gundiff',ylab='brain',main=v)
+abline(h=0,col='red',lty=2)
+abline(v=0,col='red',lty=2)
+abline(a=0,b=1,col='red',lty=2)
+
+selgenes = sgn & abs(xcnd[[v]][cmn,'log2FoldChange']) > 2 &  abs(ycnd[[v]][cmn,'log2FoldChange']) > 2 
+text(x[selgenes],y[selgenes],genes[cmn[selgenes],'gene_name'],col='blue',font=2)
+cor.test(x,y,m='p')
+
+    Pearson's product-moment correlation
+
+data:  x and y
+t = -0.3735, df = 11109, p-value = 0.7088
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.02213645  0.01505170
+sample estimates:
+         cor 
+-0.003543601 
+
+3)
+v = 'VA1'
+xcnd = deseq_gdiff
+ycnd = deseq_gundiff 
+
+cmn = intersect(rownames(xcnd[[v]]),rownames(ycnd[[v]]))
+sgn = xcnd[[v]][cmn,'padj'] < 0.05
+x = xcnd[[v]][cmn,'log2FoldChange']
+y = ycnd[[v]][cmn,'log2FoldChange']
+
+plot(x,y,pch=ifelse(sgn,19,1),xlab='gundiff',ylab='brain',main=v)
+abline(h=0,col='red',lty=2)
+abline(v=0,col='red',lty=2)
+abline(a=0,b=1,col='red',lty=2)
+
+selgenes = sgn & abs(xcnd[[v]][cmn,'log2FoldChange']) > 2 &  abs(ycnd[[v]][cmn,'log2FoldChange']) > 2 
+text(x[selgenes],y[selgenes],genes[cmn[selgenes],'gene_name'],col='blue',font=2)
+cor.test(x,y,m='p')
+
+
+	Pearson's product-moment correlation
+
+data:  x and y
+t = 27.798, df = 11809, p-value < 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.2308249 0.2646800
+sample estimates:
+      cor 
+0.2478281 
+

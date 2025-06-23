@@ -1,0 +1,27 @@
+# multiqc
+conda activate NGS
+multiqc -o ../../output/NGS-20250519/multiqc_mapped ../../mapped/NGS-20250519/
+
+#htseq
+conda deactivate #NGS env
+conda activate htseq
+for dir in VL11 VL12 VL13 VL14 VL15 VL16 VL17 VL18 VL19 VL20 VL21 VL22 VL23 VL24 VL25 VL26
+do
+    bamfile="$dir/Aligned.sortedByCoord.out.bam"  # Путь к BAM-файлу
+    index=$(basename "$dir")                     # Извлекаем имя папки (например, VL1)
+    samtools index "$bamfile" "${dir}/Aligned.${index}.bai"  # Создаем индекс с указанием папки
+done
+
+mkdir -p output/NGS-20250519/counts
+
+ls -1 mapped/NGS-20250519 | parallel -j 8 '
+  echo "Processing {}"
+  htseq-count \
+    -m intersection-nonempty \
+    -s yes \
+    -f bam \
+    -r pos \
+    mapped/NGS-20250519/{}/Aligned.sortedByCoord.out.bam \
+    ref/h38_e110_new/genes_new.gtf \
+    > output/NGS-20250519/counts/{}.tsv
+'
